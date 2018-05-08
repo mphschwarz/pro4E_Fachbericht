@@ -26,23 +26,25 @@
 %Kopf-& Fusszeile----------------------------
 \pagestyle{fancy}
 \lhead{\includegraphics[width=1.5cm]{Bilder/fhnw_logo.png}}
-\chead{EIT}
-\rhead{\slshape \leftmark}
-\cfoot{\thepage}
+\chead{Elektro- und Informationstechnik}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
 %--------------------------------------------
 
 \renewcommand*\chapterheadstartvskip{\vspace*{-0.2cm}}
 
 \begin{document}
 \include{00b_titelblatt}
-\newpage
 
 \include{00c_inhalt}
-\newpage
-\include{00c_Einleitung}
-\newpage
+
+% ab hier ist diese Konvention für die Fusszeile eingestellt
+\lfoot{Team 1\\Projekt 4}
+\cfoot{\thepage}
+\rfoot{\today}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\include{00d_Einleitung}
+
 \include{01a_Gesamtkonzept}
 \include{03a_Software}
 \include{02a_Energieversorgung}
@@ -52,20 +54,9 @@
 \include{06a_Bluetooth}
 \include{07a_Firmware}
 
-
-% ab hier ist diese Konvention für die Fusszeile eingestellt
-\fancyfoot[C]{\thepage}
-\fancyfoot[R]{\today}
-\renewcommand{\footrulewidth}{0.4pt}
-
-\include{01_probe}
-\newpage
-
 \include{20_literatur}
-\newpage
 
 \include{21_anhang}
-\newpage
 
 \end{document}
 
