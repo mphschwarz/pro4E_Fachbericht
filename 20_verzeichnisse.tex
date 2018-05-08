@@ -1,0 +1,15 @@
+\chapter{Verzeichnisse}
+% ================ Einstellungen =======================
+\thispagestyle{fancy} \rhead{\slshape Verzeichnisse}
+% ======================================================
+\makeatletter
+\renewcommand\chapter{\thispagestyle{\chapterpagestyle}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\makeatother
+\listoffigures
+\thispagestyle{fancy}
+\newpage
+\bibliography{Literaturverzeichnis/lit_fachbericht}
+\thispagestyle{fancy}
