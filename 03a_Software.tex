@@ -7,23 +7,92 @@ Im Kapitel Software wird erläutert, wie die Audiodateien auf das Dojo gelangen 
 In diesem unter Kapitel wir das erarbeitete Konzept für die Datenübertragung von einem Computer auf das Dojo dargelegt.
 
 \section{Datenverwaltung}
-Alle Austellungsobjete sind in einer Textdatei aufgelistet, in der vermerkt wird, welche Audio- und Textdatei zu welchem Beaon gehört.
-Zudem wird in einer Weiteren Textdatei ein Preset definiert, mit der die SDKarte beschrieben werden kann.
+Alle Ausstellungsobjekte sind in einer Textdatei aufgelistet, in der vermerkt wird, welche Audio- und Textdatei zu welchem Beacon gehört.
+Die Form dieser Inventardatei ist in Abbildung \ref{inventory_syntax} zu sehen.
+Zudem wird in einer Weiteren Textdatei ein Preset definiert, mit der die SD-Karte beschrieben werden kann.
+Die Form dieser Presetdatei ist in Abbildung \ref{preset_syntax} zu sehen.
 
-Der CLI-Befehl nimmt die Inventardatei und die Presetdatei als Argumente und fragt den Nutzer, welche Ausstellungen und Sprache dem Besucher zur Ferfügung stehen sollen. 
+\begin{figure}
+	\begin{verbatim}
+exhibition romans{
+    233(
+        de  roemischerhelm.mp3  roemischerhelm.tex
+        en  romanhelmet.mp3     romanhelmet.tex
+    )
+    10(
+        de  becher_rom.mp3      becher_rom.tex
+        en  cup_rome.mp3        cup_rome.tex
+    )
+}
+
+exhibition middle_ages{
+    15(
+        de  mittelalterlicher_schaedel.mp3  mittelalterlicher_schaedel.tex
+        en  skull_medieval.mp3              skull_medieval.tex
+    )
+    11(
+        de  morgenstern.mp3         morgenstern.tex
+        en  primitive_weapon.mp3    primitive_weapon.tex
+    )
+}
+	\end{verbatim}
+	\caption{Inventardatei für eine Testausstellung}
+	\label{inventory_syntax}
+\end{figure}
+
+\begin{figure}
+	\begin{verbatim}
+languages: de, en
+exhibitions: romans, middle_ages
+	\end{verbatim}
+	\caption{Presetdatei für eine Testausstellung}
+	\label{preset_syntax}
+\end{figure}
+
+Der CLI-Befehl \texttt{makepackage} nimmt die liest die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien der im Preset aufgelisteten Ausstellungen sich befinden.
+Die Dateien des generierten Audiopakets haben als namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der SD-Karte abgespeichert wird.
+
+Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die SD-Karte des Audioguides.
+Es wird dabei angenommen, dass nur ein Audioguide am PC angeschlossen ist und dass alle SD-Karten "dojo-sd" heissen.
+
+Der CLI-Befehl \texttt{maketicket} nimmt die Inventardatei und die Presetdatei als Argumente und fragt den Nutzer, welche Ausstellungen und Sprache dem Besucher zur Verfügung stehen sollen. 
 Mit diesen Inputs wird ein Ticket generiert, das über die Serielle Schnittstelle auf das EEPROM des Mikrocontrollers geladen wird.
+
+Auf dem EEPROM hat jeder Beacon zwei Bytes, die die Beacon-ID, Like und Zutritt beinhalten.
+Die Likes sind zu Beginn des Besuchs alle auf Null und können vom Besucher gesetzt werden.
+Das Zutrittsbits der bezahlten Ausstellungen werden zu Beginn des Besuchs gesetzt und können vom Besucher nicht verändert werden.
 
 % In diesem Kapitel wird beschrieben wie die Konfigurationsdateien ausgelesen werden. Zudem wird die Korrespondenztabelle erläutert. 
 
 \section{Auslesen, Schreiben}
-Hier wird beschrieben wie die Verbindung und die Datenübertragung auf den internen EEPROM realisiert wird.
+Das EEPROM des Mikrocontrollers wird über eine serielle Schnittstelle beschrieben, wobei alle Befehle das gleiche Muster haben:
+\begin{verbatim} [1 char] op-code | [3 char] arg1 | [3 char] arg2 ; \end{verbatim}
+Um ein Byte mit Wert 42 in die Adresse 2 zu schreiben, muss der String \texttt{p002042} auf die serielle Schnittstelle geschrieben werden.
+Um das Byte an der Adresse 2 auszulesen, muss der String \texttt{r002   ;} auf die serielle Schnittstelle geschrieben werden.
+Wichtig ist, dass alle Befehle mit einem Semikolon terminiert werden.
+
+Das Python Modul beinhaltet neben Schreib- und Lesefunktionen auch noch Funktionen, die ein ganzes Ticket auf das EEPROM schreiben können, bzw. wieder einlesen können.
+Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs eingehalten wird \ref{eeprom_memory_pattern}.
+
+
+\begin{figure}
+	\begin{tabular}{l|l}
+		Anzahl gespeicherter Beacons & Sprachcode    \\ \hline
+		ID Beacon1 & Like Beacon1, Zutritt Beacon1   \\ \hline
+		ID Beacon2 & Like Beacon2, Zutritt Beacon2   \\ \hline
+		\(\vdots\) & \(\vdots\) 
+	\end{tabular}
+	\caption{EEPROM Adressierungsmuster}
+	\label{eeprom_memory_pattern}
+\end{figure}
+% Hier wird beschrieben wie die Verbindung und die Datenübertragung auf den internen EEPROM realisiert wird.
 
 \section{Validierung}
 Für die Validierung der Datenverwaltung wurden Python Unittests eingesetzt, die mit einer Testdatenbank alle Funktionen testen.
 Neben den einzelnen Funktionen wird auch ein kompletter Durchlauf mit der Testdatenbank gemacht.
 
-Die EEPROM-Opperationen werden mit einem Arduino Uno-Board getestet, wobei das EEPROM vom PC aus beschrieben und wieder eingelesen wird.
-Die Unittest stellen sicher, dass das EEPROM die gewünschten Daten beinhaltet und dass diese mit der spezifizierten Geschwindigkeit übertragen werden.
+Die EEPROM-Operationen werden mit einem Arduino Uno-Board getestet, wobei das EEPROM vom PC aus beschrieben und wieder eingelesen wird.
+Die Unittests stellen sicher, dass das EEPROM die gewünschten Daten beinhaltet und dass diese mit der spezifizierten Geschwindigkeit übertragen werden.
 
 % Hier werden die Python Unittests, welche verwendet wurden, dargelegt.
 
