@@ -10,6 +10,7 @@ In diesem unter Kapitel wir das erarbeitete Konzept für die Datenübertragung v
 \section{Datenverwaltung}
 Alle Ausstellungsobjekte sind in einer Textdatei aufgelistet, in der vermerkt wird, welche Audio- und Textdatei zu welchem Beacon gehört.
 Die Form dieser Inventardatei ist in Abbildung \ref{inventory_syntax} zu sehen.
+
 Zudem wird in einer Weiteren Textdatei ein Preset definiert, mit der die SD-Karte beschrieben werden kann.
 Die Form dieser Presetdatei ist in Abbildung \ref{preset_syntax} zu sehen.
 
@@ -54,6 +55,8 @@ Der CLI-Befehl \texttt{makepackage} nimmt die liest die Inventardatei und Preset
 Die Dateien des generierten Audiopakets haben als namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der SD-Karte abgespeichert wird.
 
 Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die SD-Karte des Audioguides.
+Dazu schickt es dem Mikrocontroller den Befehl, dass er den Multiplexer umschaltet.
+Das Betriebsystem des PC sollte dann die SD-Karte mounten und dem Python Skript verfügbar machen, worauf dieses die Daten kopiert.
 Es wird dabei angenommen, dass nur ein Audioguide am PC angeschlossen ist und dass alle SD-Karten "dojo-sd" heissen.
 
 Der CLI-Befehl \texttt{maketicket} nimmt die Inventardatei und die Presetdatei als Argumente und fragt den Nutzer, welche Ausstellungen und Sprache dem Besucher zur Verfügung stehen sollen. 
