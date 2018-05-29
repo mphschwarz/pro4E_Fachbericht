@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 \select@language {ngerman}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
@@ -14,3 +15,22 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {10.1}{\ignorespaces Abmessungen WTV020}}{13}{figure.caption.8}
+=======
+\select@language {ngerman}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Blockschaltbild Gesamtsystem\relax }}{2}{figure.caption.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Inventardatei f\IeC {\"u}r eine Testausstellung\relax }}{4}{figure.caption.3}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Presetdatei f\IeC {\"u}r eine Testausstellung\relax }}{4}{figure.caption.4}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces EEPROM Adressierungsmuster\relax }}{4}{figure.caption.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Konzept USB\relax }}{7}{figure.caption.8}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Abmessungen WTV020}}{14}{figure.caption.11}
+>>>>>>> Stashed changes
