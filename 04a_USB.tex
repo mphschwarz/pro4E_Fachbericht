@@ -26,7 +26,7 @@ Eine micro USB-Typ B Schnittstelle ist die gemeinsame Schnittstelle nach aussen.
 Als USB-Switch wird der Baustein TS3USB30E von Texas Instruments verwendet. Dieser Chip wurde dafür entwickelt, um high-speed USB 2.0 Signale in portablen Geräten und Konsumelektronik zu schalten. Gesteuert wird der USB-Switch über zwei Pins. Über den Enable-Pin kann der Baustein in einen hochohmigen Zustand gebracht werden, um den Bus nicht zu belasten und den Stromverbrauch zu senken. Mit dem Select-Pin wird der durchzuschaltende Pfad ausgewählt.
 
 Folgende Tabelle zeigt die Wahrheitstabelle für die entsprechenden Pfade:
-\begin{figure}[h]
+\begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|} 
 		Select (Pin24) & $\overline{Enable}$ (Pin23) & Funktion \\ 
@@ -39,7 +39,7 @@ Folgende Tabelle zeigt die Wahrheitstabelle für die entsprechenden Pfade:
 	\end{tabular} 
 	\caption{Wahrheitstabelle USB-Pfade}
 	\label{truth_table_usb}
-\end{figure}
+\end{table}
 
 \section{USB zu UART}
 
@@ -51,6 +51,22 @@ Bei aktivem UART-Pfad wird der Dojo am Computer als serielle Schnittstelle erkan
 \section{USB zu SDIO}
 
 Der VUB300 Chip vom Hersteller elan stellt das USB zu SDIO Interface bereit. Damit kann die SD-Karte im Dojo über den USB-Anschluss beschrieben und ausgelesen werden. Wird mit dem USB-Switch der SDIO-Pfad durchgeschaltet, erscheint die SD-Karte am Computer als Datenträger und kann gelesen sowie beschrieben werden. Zu beachten ist, dass zwischen dem VUB300 Chip und der SD-Karte noch ein weiterer Multiplexer (MUX) eingebaut ist. Mit diesem wird die SD-Karte zwischen dem VUB300 und dem Audio-Chip umgeschaltet. Genaueres dazu findet man in Abschnitt \textbf{\ref{Audioausgabe} \nameref{Audioausgabe}}.
+Damit die SD-Karte mit dem SDIO-Pfad verbunden ist, muss der MUX TS3A27518 (siehe Schema im Anhang) folgendermassen angesteuert werden:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|} 
+		$\overline{Enable}$ (Pin25) & IN1 (Pin26) & IN2 (Pin27) & Funktion \\ 
+		\hline 
+		HIGH & X & X & hochohmig \\ 
+		\hline 
+		LOW & LOW & LOW & Pfad = SDIO(VUB300) \\ 
+		\hline 
+		LOW & HIGH & HIGH & Pfad = Sound-Modul \\ 
+	\end{tabular} 
+	\caption{Wahrheitstabelle SD-Pfade}
+	\label{truth_table_sd}
+\end{table}
 
 
 
@@ -63,4 +79,4 @@ Um die korrekte Funktion der seriellen Schnittstelle zwischen dem USB-Anschluss 
 
 Mit einem weiteren Testprogramm wurde die Funktionsfähigkeit des SDIO-Pfades überprüft. Dafür wurde der USB-Switch und der MUX mit dem Mikrocontroller entsprechend angesteuert. Die SD-Karte wurde daraufhin von einem Computer mit Linux Betriebssystem als Datenträger erkannt und konnte ausgelesen und beschrieben werden. Leider stellte sich nach weiteren Tests heraus, dass auf einem Windows-Rechner keine SD-Karte erkannt wird. Die Gründe dafür sind nicht bekannt und das Problem konnte auch nicht behoben werden. Somit muss die Computer-Software auf einem Linux Betriebssystem gestartet werden.
 \paragraph{Anmerkung}$ $\\
-Durch die begrenzte Verfügbarkeit des VUB300 Chips, sowie der geringen Informationsdichte über den Baustein, ist dieser nicht für weitere Projekte oder Serienproduktionen zu empfehlen.
+Durch die begrenzte Verfügbarkeit des VUB300 Chips, sowie der geringen Informationsdichte über den Baustein und dem Kompatibilitätsproblem mit Windows, ist dieser nicht für weitere Projekte oder Serienproduktionen zu empfehlen.
