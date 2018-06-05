@@ -3,7 +3,12 @@
 % ================ Einstellungen =======================
 \thispagestyle{fancy} \rhead{\slshape USB} 
 % ======================================================
+
+Im folgenden Kapitel wird erklärt, wie über die USB-Schnittstelle Daten auf den Dojo geladen werden und ausgelesen werden. In einem Unterkapitel wird sogleich die Validierung beschrieben. 
+
 \section{Technische Grundlagen}
+
+Nachfolgend werden einige Begriffe zur Datenübertragung kurz erklärt, welche im Kapitel von Bedeutung sind.
 
 \paragraph{UART}
 Universal Asynchronous Receiver Transmitter (UART) realisiert eine digitale serielle Schnittstelle. Über die UART-Schnittstelle können Daten über einen Datenstrom gesendet und empfangen werden. Die Daten sind in einem fixen Rahmen, bestehend aus Start-Bit, fünf bis neun Datenbits, optionalem Parity-Bit zur Fehlererkennung und einem Stopp-Bit.
@@ -13,7 +18,7 @@ Secure Digital Input Output (SDIO) bezeichnet ein Interface für die Datenübert
 
 \section{Konzept}
 
-Zur Kommunikation mit dem Mikrocontroller im Gerät besteht eine USB-UART-Schnittstelle. Um neue Audio-Dateien auf die SD-Karte zu schreiben, wurde ausserdem eine USB-SDIO-Schnittstelle realisiert. Folgende Abbildung zeigt das Konzept mit den beiden Schnittstellen.
+Zur Kommunikation mit dem Mikrocontroller im Gerät besteht eine USB-UART-Schnittstelle. Um neue Audio-Dateien auf die SD-Karte zu schreiben, wurde ausserdem eine USB-SDIO-Schnittstelle realisiert. Folgende Abbildung \ref{Konzept_USB} zeigt das Konzept mit den beiden Schnittstellen.
 
 \begin{figure}[h]
 	\centering
@@ -25,7 +30,7 @@ Zur Kommunikation mit dem Mikrocontroller im Gerät besteht eine USB-UART-Schnit
 Eine micro USB-Typ B Schnittstelle ist die gemeinsame Schnittstelle nach aussen. Dahinter schaltet ein USB-Switch, gesteuert durch den Mikrocontroller, einen der beiden Pfade durch. Es kann jeweils entweder der SDIO-Pfad oder UART-Pfad durchgeschaltet werden, nie beide Pfade gleichzeitig.\newline
 Als USB-Switch wird der Baustein TS3USB30E von Texas Instruments verwendet. Dieser Chip wurde dafür entwickelt, um high-speed USB 2.0 Signale in portablen Geräten und Konsumelektronik zu schalten. Gesteuert wird der USB-Switch über zwei Pins. Über den Enable-Pin kann der Baustein in einen hochohmigen Zustand gebracht werden, um den Bus nicht zu belasten und den Stromverbrauch zu senken. Mit dem Select-Pin wird der durchzuschaltende Pfad ausgewählt.
 
-Folgende Tabelle zeigt die Wahrheitstabelle für die entsprechenden Pfade:
+Folgende Tabelle \ref{truth_table_usb} zeigt die Wahrheitstabelle für die entsprechenden Pfade:
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|} 
@@ -77,6 +82,6 @@ Um die korrekte Funktion der seriellen Schnittstelle zwischen dem USB-Anschluss 
 
 \section{Validierung SDIO-Pfad}
 
-Mit einem weiteren Testprogramm wurde die Funktionsfähigkeit des SDIO-Pfades überprüft. Dafür wurde der USB-Switch und der MUX mit dem Mikrocontroller entsprechend angesteuert. Die SD-Karte wurde daraufhin von einem Computer mit Linux Betriebssystem als Datenträger erkannt und konnte ausgelesen und beschrieben werden. Leider stellte sich nach weiteren Tests heraus, dass auf einem Windows-Rechner keine SD-Karte erkannt wird. Die Gründe dafür sind nicht bekannt und das Problem konnte auch nicht behoben werden. Somit muss die Computer-Software auf einem Linux Betriebssystem gestartet werden.
+Mit einem weiteren Testprogramm wurde die Funktionsfähigkeit des SDIO-Pfades überprüft. Dafür wurde der USB-Switch und der MUX mit dem Mikrocontroller entsprechend angesteuert. Die SD-Karte wurde daraufhin von einem Computer mit Linux Betriebssystem als Datenträger erkannt und konnte erfolgreich ausgelesen und beschrieben werden. Leider stellte sich nach weiteren Tests heraus, dass auf einem Windows-Rechner keine SD-Karte erkannt wird. Die Gründe dafür sind nicht bekannt und das Problem konnte auch nicht behoben werden. Somit muss die Computer-Software auf einem Linux Betriebssystem gestartet werden.
 \paragraph{Anmerkung}$ $\\
 Durch die begrenzte Verfügbarkeit des VUB300 Chips, sowie der geringen Informationsdichte über den Baustein und dem Kompatibilitätsproblem mit Windows, ist dieser nicht für weitere Projekte oder Serienproduktionen zu empfehlen.
