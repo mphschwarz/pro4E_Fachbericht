@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{blindtext}
+\usepackage[top=3.5cm,bottom=3.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{pro4E Team 1}
+\lhead{FHNW}
+
+\title{Abstract}
+
+\begin{document}
+
+\section*{Abstract}
+
+% Motivation
+When visiting a museum, the exhibitions context is important.
+The most natural way of learning about an exhibition is from a fellow human, 
+	but guided tours don't allow visitors to explore the exhibition naturally.
+The next best thing is an audio guide that tells the visitor about every object in the exhibition when they discover it.
+It might not be interactive, but all visitors can experience the exhibition at their own pace.
+While conventional audio guides are a big improvement over plain text plaques,
+	the Dojo is the next evolution in personal guided tours in museums.
+
+% Problem statement
+The Dojo audio guide possesses a sleek case that is ergonomic and sanitary.
+It employs a bone conduction transducer to enable an immersive museum experience 
+	without isolating the visitor form their environment.
+Each exhibition object is fitted with a Bluetooth beacon transmitting a unique ID, 
+	enabling the visitor to learn more about that object.
+The challenge lies in creating an electronics package that fits in the Dojos very long and narrow casing
+	and fulfilling the bone conduction transducer's demanding power requirements.
+
+% Approach
+To meet the design criteria, the Dojo incorporates an ATmega328p microcontroller as CPU
+	and a WTV020 audio chip as output device.
+Both fit in the Dojo enclosure and the WTV020 can be easily controlled by the ATmega328p's GPIO, 
+	enabling a clean separation of user output and control logic, forgoeing the need for an operating system.
+In a typical usage scenario the Dojo is loaded with a audio package before opening hours.
+When a visitor buys a ticket the Dojo receives a "key" with all Bluetooth beacons they have access to.
+After entering the exhibition, the Dojo will search for the closest beacon with its Bluetooth module
+	and if it is close enough it will notify the visitor with the vibration motor.
+Should the visitor enter an exhibition they don't have access to, 
+	the Dojo will notify them of this with the vibration motor and the red LED band.
+
+% Results
+In tests the Dojo has shown it can identify the closest of \texttt{BEACON\_NUMBER} beacons
+	and can determine its exact distance with precision of \texttt{BLUETOOTH\_PRECISION} meters.
+It can store \texttt{TOTAL\_AUDIO} minutes of Audio and up to 255 unique Beacon IDs.
+For a typical use case, the battery has been shown to last \texttt{BATTERY\_LIFE}
+	before the deep discharge protection shuts the Dojo down.
+The current prototype is printed on a double layer circuit board and measures \texttt{DIMENSIONS}, 
+	however since it only incorporates components that fit in the Dojo's case, 
+	the final product will only require a different circuit layout and a \texttt{PCB\_LAYERS} layer circuit board.
+
+% conclusions
+The Dojo has shown itself to be a promising product, increasing the quality of a museum visitors experience.
+It is based on commonly available components and can be purchased for an affordable price.
+
+\paragraph{Keywords:} Audio guide, Bluetooth, Bone conduction transducer, ATmega328p, WTV020, HM11
+
+\end{document}

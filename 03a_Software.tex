@@ -11,10 +11,10 @@ In diesem unter Kapitel wir das erarbeitete Konzept für die Datenübertragung v
 Alle Ausstellungsobjekte sind in einer Textdatei aufgelistet, in der vermerkt wird, welche Audio- und Textdatei zu welchem Beacon gehört.
 Die Form dieser Inventardatei ist in Abbildung \ref{inventory_syntax} zu sehen.
 
-Zudem wird in einer Weiteren Textdatei ein Preset definiert, mit der die SD-Karte beschrieben werden kann.
+Zudem wird in einer weiteren Textdatei ein Preset definiert, mit der die SD-Karte beschrieben werden kann.
 Die Form dieser Presetdatei ist in Abbildung \ref{preset_syntax} zu sehen.
 
-\begin{figure}
+\begin{figure}[h]
 	\begin{verbatim}
 exhibition romans{
     233(
@@ -42,7 +42,7 @@ exhibition middle_ages{
 	\label{inventory_syntax}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 	\begin{verbatim}
 languages: de, en
 exhibitions: romans, middle_ages
@@ -51,7 +51,7 @@ exhibitions: romans, middle_ages
 	\label{preset_syntax}
 \end{figure}
 
-Der CLI-Befehl \texttt{makepackage} nimmt die liest die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien der im Preset aufgelisteten Ausstellungen sich befinden.
+Der CLI-Befehl \texttt{makepackage} nimmt die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien der im Preset aufgelisteten Ausstellungen sich befinden.
 Die Dateien des generierten Audiopakets haben als namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der SD-Karte abgespeichert wird.
 
 Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die SD-Karte des Audioguides.
@@ -76,7 +76,7 @@ Um das Byte an der Adresse 2 auszulesen, muss der String \texttt{r002   ;} auf d
 Wichtig ist, dass alle Befehle mit einem Semikolon terminiert werden.
 
 Das Python Modul beinhaltet neben Schreib- und Lesefunktionen auch noch Funktionen, die ein ganzes Ticket auf das EEPROM schreiben können, bzw. wieder einlesen können.
-Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs eingehalten wird \ref{eeprom_memory_pattern}.
+Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs in Abbildung \ref{eeprom_memory_pattern} eingehalten wird.
 
 
 \begin{figure}
@@ -93,10 +93,11 @@ Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs eingehalten wird 
 
 \section{Validierung}
 Für die Validierung der Datenverwaltung wurden Python Unittests eingesetzt, die mit einer Testdatenbank alle Funktionen testen.
-Neben den einzelnen Funktionen wird auch ein kompletter Durchlauf mit der Testdatenbank gemacht.
+Neben den einzelnen Funktionen wurde auch ein kompletter Durchlauf mit der Testdatenbank gemacht.
 
 Die EEPROM-Operationen werden mit einem Arduino Uno-Board getestet, wobei das EEPROM vom PC aus beschrieben und wieder eingelesen wird.
 Die Unittests stellen sicher, dass das EEPROM die gewünschten Daten beinhaltet und dass diese mit der spezifizierten Geschwindigkeit übertragen werden.
+Die Tests zeigen, dass ein volles Ticket mit 250 einträgen 20 Sekunden benötigt um auf das EEPROM geschrieben zu werden.
 
 % Hier werden die Python Unittests, welche verwendet wurden, dargelegt.
 
