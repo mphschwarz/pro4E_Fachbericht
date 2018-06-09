@@ -51,7 +51,7 @@ exhibitions: romans, middle_ages
 	\label{preset_syntax}
 \end{figure}
 
-Der CLI-Befehl \texttt{makepackage} nimmt die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien der im Preset aufgelisteten Ausstellungen sich befinden.
+Der CLI-Befehl \texttt{makepackage} nimmt die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien die in der Inventardatei aufgelisteten sind sich befinden.
 Die Dateien des generierten Audiopakets haben als namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der SD-Karte abgespeichert wird.
 
 Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die SD-Karte des Audioguides.
@@ -81,10 +81,10 @@ Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs in Abbildung \ref
 
 \begin{figure}
 	\begin{tabular}{l|l}
-		Anzahl gespeicherter Beacons & Sprachcode    \\ \hline
-		ID Beacon1 & Like Beacon1, Zutritt Beacon1   \\ \hline
-		ID Beacon2 & Like Beacon2, Zutritt Beacon2   \\ \hline
-		\(\vdots\) & \(\vdots\) 
+		Anzahl gespeicherter Beacons & Sprachcode                      \\ \hline
+		ID Beacon1                   & Like Beacon1, Zutritt Beacon1   \\ \hline
+		ID Beacon2                   & Like Beacon2, Zutritt Beacon2   \\ \hline
+		\(\vdots\)                   & \(\vdots\) 
 	\end{tabular}
 	\caption{EEPROM Adressierungsmuster}
 	\label{eeprom_memory_pattern}
@@ -97,7 +97,8 @@ Neben den einzelnen Funktionen wurde auch ein kompletter Durchlauf mit der Testd
 
 Die EEPROM-Operationen werden mit einem Arduino Uno-Board getestet, wobei das EEPROM vom PC aus beschrieben und wieder eingelesen wird.
 Die Unittests stellen sicher, dass das EEPROM die gewünschten Daten beinhaltet und dass diese mit der spezifizierten Geschwindigkeit übertragen werden.
-Die Tests zeigen, dass ein volles Ticket mit 250 einträgen 20 Sekunden benötigt um auf das EEPROM geschrieben zu werden.
 
+Es werden zudem noch Benchmarks durchgeführt, welche sicherstellen, dass nicht unnötig gewartet wird.
+Ein Test, der misst, wie lange das beschreiben von verschieden lange Tickets dauert zeigt, dass das beschreiben eines vollen Tickets mit 250 Beacons 6.17 dauert.
 % Hier werden die Python Unittests, welche verwendet wurden, dargelegt.
 
