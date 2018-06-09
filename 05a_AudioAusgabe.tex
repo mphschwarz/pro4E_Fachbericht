@@ -30,5 +30,46 @@ Wie im Konzept beschrieben, muss man, um Daten von der $\mu$SD-Karte auszulesen 
 Um ein Rauschen an der Speisung zu vermeiden wird ein ein$\mu$ Farad grosser Kondensator benötigt. In diesem Projekt wurde eine konstante Verstärkung mit dem Faktor ca.15 verwendet, da die Lautstärken Regelung über den WTV020-Chip geregelt werden soll. Dieser Faktor entsteht aus dem Verhältnis der Widerstände. Um das Rauschen der Eingänge sowie zu hohe Frequenzen zu filtern wurden zuerst wie die Abbildung \ref{Klasse-D} zeigt, Kapazitäten eingeplant. Auf dem Prototyp wurden aufgrund von Tests welche in der Validierung aufgeführt werden, die Kapazitäten weggelassen.\\ Wie erwähnt wird die Lautstärkenregelung über den WTV020-Chip geregelt. Dies ist jedoch im serial mode fehleranfällig. Aufgrund dessen wurde für die Tests ein 50 Ohm grosser Widerstand vor den Bone Conductor geschaltet da bei grossen Strömen dieser eine zu kleine Innenimpedanz aufweist.\\ Wie erwähnt wird die Lautstärkenregelung über den WTV020-Chip geregelt. Dies ist jedoch im serial mode fehleranfällig. Aufgrund dessen wurde für die Tests ein 50 Ohm grosser Widerstand vor den Bone Conductor geschaltet da bei grossen Strömen dieser eine zu kleine Innenimpedanz aufweist. Die Audioausgabe erfolgt wie beschrieben über einen Bone Conductor. Der Bone Conductor besteht aus einem kleinen Metallstab welcher mit einer Kupfer Spule umwickelt ist. Sobald ein pulsförmiger Strom durch die Spule fliest, dehnt sich ein Magnetfeld aus welches ein zusammenziehen auslöst. Der Bone Conductor ermöglicht es durch die Vibrationen das eine Audio Datei über den Schädelknochen abgespielt wird und so nur für eine Person hörbar ist, diese jedoch immer noch die Umgebungsgeräusche war nimmt.
 
 \section{Firmware}
+Wie im Kapitel Hardware beschrieben muss der MUX angesteuert werden um dem WTV-Chip den Zugriff auf die $\mu$SD-Karte zu gewähren. Die folgende Tabelle zeigt wie der MUX angesteuert werden muss, damit die benötigten Pins durgeschalten sind.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=15cm]{Bilder/MuxTab.jpg}
+	\caption{MUX, TS3A27518 Funktionstabelle}
+	\label{MUX-Tabelle}
+\end{figure}
+
+Für die Audioausgabe müssen alle Öffner geschlossen werden. Dies wird über die Pins 25 – 27 (Port C) realisiert. Sobald Musik abgespielt werden muss, werden die benötigten Ausgänge gesetzt. Sobald am Pin 9 über einen Taster Play ein low Signal erkannt wird, wird folgende Funktion aufgerufen:
+\begin{figure}[h]
+	\begin{verbatim}
+void sendWTVcommand(unsigned int command){
+	digitalWrite(WTV_CLK, LOW);
+	_delay_us(1900);
+	for (byte i = 0; i < 16; i++)
+	{
+		_delay_us(100);
+		digitalWrite(WTV_CLK, LOW);
+		digitalWrite(WTV_DOUT, LOW);
+		if ((command & 0x8000) != 0)
+		{
+			digitalWrite(WTV_DOUT, HIGH);
+		}
+		_delay_us(100);
+		digitalWrite(WTV_CLK, HIGH);
+		command = command<<1;
+	}
+}
+	\end{verbatim}
+	\caption{Audio Datei abspielen }
+	\label{WTV-Play}
+\end{figure}
+
+
+Die benötigten Befehle welche sendWTVcommand mitgegeben werden müssen sind aufgrund des WTV020-Chips vorgefertigt.
+\newpage Nachfolgend werden die verwendeten Befehle aufgeführt.\\
+OPCODEPLAYPAUSE: OPCODEPLAYPAUSE muss default mässig auf 0xFFE gesetzt werden. Dies ermöglicht es eine Datei abzuspielen und zu pausieren. Um die Ausgabe zu starten muss immer am Anfang die gewünschte File Nummer mitgegeben werden (0-512). Ohne File Nummer wird die Audioausgabe pausiert und kann wieder gestartet werden.  \\
+OPCODESTOP: Dies stoppt die laufende Datei und setzt diese zurück.\\
+OPCODEVOL: OPCODEVOL muss am Anfang auf 0xFFF0 gesetzt werden. Dies ermöglicht die Lautstärken Regulierung wobei 0xFFF0 den Aktor auf stumm schaltet und 0xFFF7 die maximale Lautstärke ausgibt. \\
+Für die Audioausgabe wurden PLAYPAUSE und OPCODEVOL verwendet. Durch diese ist es möglich die gewünschten Funktionen umzusetzen. 
 
 \section{Validierung}
