@@ -5,15 +5,18 @@
 % ======================================================
 \section{Konzept}
 \section{Statemachine}
-Auf dem Mikrocontroller lauft eine Mealy-Statemachine mit fünf Zuständen.
-\begin{itemize}
-	\item SCAN: Das Bluetooth Modul sucht nach Beacons und meldet on sich ein Beacon nahe genug befindet
-	\item PLAY: Es wird eine Aufnahme abgespielt und nicht nach Beacons gesucht.
-	\item GET\_Likes:
-	\item LOAD\_SD: Die microSD-Karte soll beschrieben werden, weshalb der Multiplexer den Eingang der microSD-Karte an den PC freigibt.
-	\item LOAD\_CONFIG: Ein Ticket wird über die serielle Schnittstelle auf das interne EEPROM geladen.
+Auf dem Mikrocontroller läuft eine Mealy-Statemachine mit fünf Zuständen:\\
+\begin{itemize}[leftmargin=3.2cm]
+\item[SCAN:] Es wird vom Dojo nach IBeacons in naher Umgebung gesucht. Falls einer gefunden wurde, dann wird direkt das dazugehörige Audiofile bereitgestellt. Wird der Playbutton gedrückt, ändert sich der State zu PLAY. Ansonsten wird weiter gescanned.
+\item[PLAY:] Hier werden die bereitgestellten Audiofiles abgespielt. Wird der Playbutton nochmals gedrückt, wird das Abspielen abgebrochen und der State wechselt wieder zu SCAN.
 \end{itemize}
-\section{Datenverwaltung}
+Wird das Dojo an den Computer angeschlossen, ist der Zustand des Dojos abhängig von der gewünschten Tätigkeit. Dafür wird vom Computer aus ein Befehl über das USB-Kabel gesendet, woraufhin sich der State ändert:
+\begin{itemize}[leftmargin=3.2cm]
+\item[GET\_Likes:] Die vom Besucher getätigten Likes werden vom EEPROM auf den Computer transferiert.
+\item[LOAD\_SD:] Die microSD-Karte wird mit den gewünschten Audiofiles beschrieben.
+\item[LOAD\_CONFIG:] Ein Ticket wird auf das interne EEPROM geladen.
+\end{itemize}
+ \section{Datenverwaltung}
 In diesem Kapitel wird die Datenverwaltung auf dem internen EEPROM erklärt.
 \section{Validierung}
 Hier wird die Validierung der kompletten Firmware sowie dessen Ergebnisse dargelegt. 
