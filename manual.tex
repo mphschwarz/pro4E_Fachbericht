@@ -1,0 +1,13 @@
+\section{Benutzeranleitung}
+\subsection{\texttt{maketicket inventory\_file preset\_file}}
+Dieser CLI-Befehl schreibt ein "Ticket" auf das EEPROM.
+Das inventory\_file beschreibt die ganze Datenbank, 
+das preset\_file beschreibt, welche Audiodateien sich schon auf der SD-Karte befinden.
+Gibt man den Befehl ein, promptet das Programm den Nutzer, 
+welche Ausstellungen bezahlt sind und anschliessend welche Sprache gewünscht ist.
+Sind diese Daten erfasst schreibt das Programm das Ticket über die serielle Schnittstelle auf das EEPROM.
+\subsection{\texttt{makepackage inventory\_file preset\_file package\_path}}
+Dieser CLI-Befehl kopiert die Audiodateien aller in der Presetdatei spezifizierter Ausstellungen in den Ordner package\_path. 
+Die Dateien sind dann alle umbenannt, damit sie in der richtigen Reihenfolge auf die SD-Karte geschrieben werden.
+\subsection{\texttt{loadsd package\_path}}
+Dieser CLI-Befehl schreibt alle Audiodateien im Ordner package\_path auf die SD-Karte des Dojos. Alle schon auf der SD-Karte vorhandenen Dateien werden dabei gelöscht.
