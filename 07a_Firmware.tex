@@ -17,6 +17,12 @@ Wird das Dojo an den Computer angeschlossen, ist der Zustand des Dojos abhängig
 \item[LOAD\_CONFIG:] Ein Ticket wird auf das interne EEPROM geladen.
 \end{itemize}
  \section{Datenverwaltung}
-In diesem Kapitel wird die Datenverwaltung auf dem internen EEPROM erklärt.
+%In diesem Kapitel wird die Datenverwaltung auf dem internen EEPROM erklärt.
+Das Ticket auf dem EEPROM beinhaltet für jedes Ausstellungsobjekt zwei Bytes, das erste beinhaltet die Beacon-ID und das zweite das Zutritts- und Like-Bit.
+Die ersten zwei Bytes sind reserviert und beinhalten die Anzahl gespeicherter Beacons und ein Sprachcode: 0 für die erste Sprace, 1 für die zweite.
+Da auf der SD-Karte die Dateien der zwei Sparchen abewechslungsweise und in gleicher Reihenfolge wie im EEPROM aufgelistet sind, muss nur der Index der Beaon-ID übergeben werden damit die korrekte Audiodatei abgespielt werden kann: \\
+\texttt{(BeaconIndex - 2) * 2 + Sprachcode}.
 \section{Validierung}
-Hier wird die Validierung der kompletten Firmware sowie dessen Ergebnisse dargelegt. 
+%Hier wird die Validierung der kompletten Firmware sowie dessen Ergebnisse dargelegt. 
+Die Validierung der Datenverwaltung wird auch mit Unittests vom PC aus gemacht.
+Es wird dabei ein mit Zufallszahlengenerator generiertes Ticket über die serielle Schnittstelle auf das EEPROM geschrieben und dann wieder eingelesen.
