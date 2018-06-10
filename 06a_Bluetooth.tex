@@ -4,6 +4,7 @@
 \thispagestyle{fancy} \rhead{\slshape Bluetooth}
 % ======================================================
 \section{Technische Grundlagen}
+<<<<<<< Updated upstream
 \section{IBeacons auslesen und identifizieren}
 Mittels der Funktion scan() im State SCAN wird mit dem hm-11 nach den verfügbaren IBeacons in der Umgebung gesucht. Über eine serielle Schnittstelle (UART) wird vom MCU der Befehl AT+DISI? dem hm-11 geschickt, wobei als Antwort dann alle umliegenden IBeacons in einem String zurückkommen (siehe Abbildung \ref{fig:disiCommand}).
 \begin{figure}[h]
@@ -13,6 +14,43 @@ Mittels der Funktion scan() im State SCAN wird mit dem hm-11 nach den verfügbar
 \label{fig:disiCommand}
 \end{figure}
 Dafür wird vom MCU jeder char, rsp. jedes Byte vom Datenbuffer ausgelesen und verwertet. Es wird zuerst nach einer UUID eines IBeacons gefiltert und dann die ersten drei Zahlen in einen Integer gecastet. Anschließend soll das Majorvalue\footnote{Major- und Minorvalues dienen hauptsächlich zur zusätzlichen Identifikation eines IBeacons}, welches einen bestimmten, selbst wählbaren Wert hat, abgeglichen werden, damit nur die IBeacons berücksichtig werden, die relevant sind. Ist der empfangene RSSI-Wert grösser als -90dbm, wird der IBeacon eingespeichert. Dies wird mit jedem empfangenen IBeacon wiederholt und immer die RSSI-Werte miteinander verglichen, wobei dann der IBeacon mit dem grösseren RSSI-Wert ins System gespeichert und als Returnvalue von der scan() Funktion zurückgegeben wird.
+=======
+Da eine drahtlose Verbindung mit Beacons hergestellt werden muss, wird dazu ein Bluetooth-Modul, das HM-11, verwendet. Es ermöglicht das Übertragen der Identifikationsnummer vom Beacon auf das Dojo. Der Vorteil eines vorgefertigten Moduls liegt in der einfachen Ansteuerung Hardware-, sowie Firmware-mässig.
+
+\subsection{Technische Daten}
+Das HM-11 Bluetooth-Modul benötigt eine Versorgungsspannung von 3.3 V DC und verfügt über das Kommunikationsprotokoll UART. Die Standard Baudrate beträgt 9600bps und nimmt beim Senden einen Strom von 15 mA auf. In offener Umgebung beträgt die Reichweite bis zu 30 m und unterstützt AT Kommandos, um das Bluetooth-Modul zu konfigurieren. 
+
+\subsection{Bluetooth-Konfiguration}
+Damit der Prototyp die Beacons erkennt, wird ein Bluetooth-Modul, das HM-11, verwendet. Es ermöglicht das Übertragen der Identifikationsnummer vom Beacon auf die Printplatte. Um eine reibungslose Kommunikation zu gewährleisten, müssen einige Konfigurationen beim Bluetooth-Modul vorgenommen werden. Das Bluetooth-Modul wird mit einem FTDI verkabelt und am PC angeschlossen. Mit den AT-Kommandos wie AT+Name, AT+ROLE1, AT+IMME1 und AT+DISI? kann das Bluetooth-Modul nun eingestellt werden. Falls das Bluetooth-Modul bereits auf dem Print bestückt ist, kann das Modul über die UART-Schnittstelle konfiguriert werden. 
+
+\section{Beacons im Museum}
+Beacons sind kleine und kompakte Bluetooth-Sender die auf der Low Energy Spezifikation basieren. Sie können entweder batteriebetrieben oder mit permanentem Stromanschluss an Räumen oder Objekten installiert werden. Bewegt sich ein Museumsbesucher in die Nähe eines Beacons mit diesem Dojo, so kann er Audio- und Video-Beiträge empfangen und mit dem Dojo abspielen. Zudem kann an der Kasse des Museums entschieden werden, welche Zonen aktiviert werden sollen. Das Dojo beinhaltet somit auch die Zutrittsberechtigungen. Der Vorteil dieses Systems ist der Preis. Es wird nur so viel bezahlt, was den Kunden  interessiert. 
+
+\subsection{Minew E7}
+Mit dem Beacon Minew E7 konnte ein Museum simuliert werden, um den Prototypen auf die Funktionalität zu prüfen. Dieser Beacon lässt sich über die gratis BeaconSET+ App konfigurieren. Dieser Beacon bringt einige Vorteile mit sich. Zum einen kriegt er eine maximale Reichweite von 100 m  hin, doch noch viel wichtiger ist das Protokoll. Der Minew E7 unterstützt iBeacon und Eddystone Protokolle die entweder separat oder gleichzeitig benutzt werden können. 
+
+\subsection{Protokollbeschreibung}
+Das iBeacon-Protokoll wurde von Apple entwickelt und baut auf der Bluetooth-Low-Energy-Spezifikation auf. Das Paket das ausgestrahlt wird hat eine Länge von 30 Byte. In diesem Paket stecken die ganzen Informationen wie Geräte-ID, Beacon-Typ, Referenzempfangsleistung und noch viele weitere Daten drin. Um die Beacons zu scannen, wurde die Software so geschrieben, dass es nur die UUID, den Majorvalue und den RSSI-Wert benötogt. Nachfolgend wird der Aufbau des iBeacons-Paket graphisch dargestellt. 
+
+
+%%%%%%
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=15cm]{Bilder/iBeacon_Paket.PNG}
+	 \caption{Aufbau eines iBeacon-Pakets}
+	 \label{fig:iBeacon}
+\end{figure}
+%%%%%%
+
+\subsection{Receiver Signal Strength Indicator (RSSI)}
+Der RSSI ist ein dimensionsloser Wert. Er beschreibt die empfangene Leistung bei kabelloser Kommunikation. Angegeben wird der Wert in dBm, was das Verhältnis in Dezibel zwischen der Leistung mW und der Referenzleistung 1 mW darstellt. 
+
+
+
+\section{Konzept}
+\section{Hardware}
+\section{Firmware}
+>>>>>>> Stashed changes
 \section{Validierung}
 Für die Validierung wurden zwei IBeacons mit Androidhandys simuliert (Beacon Simulator App). Dafür wurden diese mit einer Distanz von ungefähr $6m$ zueinander auf einer Höhe von ca. $2m$ platziert. Um die detektierten IBeacons direkt auszuwerten, wurde die UUID auf einen Emulator (Putty) über eine serielle Schnittstelle (USB Typ micro B) herausgeschrieben. Somit konnte verifiziert werden, dass der vom Dojo detektierte IBeacon auch der sich am Dojo nächsten befindliche IBeacon war. 
 \\[0.5cm]
