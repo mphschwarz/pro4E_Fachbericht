@@ -4,14 +4,15 @@
 \thispagestyle{fancy} \rhead{\slshape Software}
 % ======================================================
 Im Kapitel Software wird erläutert, wie die Audiodateien auf das Dojo gelangen und die Korrespondenztabelle angepasst werden kann. Es wird erklärt, wie die Likes ausgewertet und verarbeitet werden können.
-\section{Konzept}
-In diesem unter Kapitel wir das erarbeitete Konzept für die Datenübertragung von einem Computer auf das Dojo dargelegt.
+
+%\section{Konzept}
+%In diesem Unterkapitel wird das erarbeitete Konzept für die Datenübertragung von einem Computer auf das Dojo dargelegt.
 
 \section{Datenverwaltung}
 Alle Ausstellungsobjekte sind in einer Textdatei aufgelistet, in der vermerkt wird, welche Audio- und Textdatei zu welchem Beacon gehört.
 Die Form dieser Inventardatei ist in Abbildung \ref{inventory_syntax} zu sehen.
 
-Zudem wird in einer weiteren Textdatei ein Preset definiert, mit der die SD-Karte beschrieben werden kann.
+Zudem wird in einer weiteren Textdatei ein Preset definiert, mit der die $\mu$SD-Karte beschrieben werden kann.
 Die Form dieser Presetdatei ist in Abbildung \ref{preset_syntax} zu sehen.
 
 \begin{figure}[h]
@@ -51,20 +52,20 @@ exhibitions: romans, middle_ages
 	\label{preset_syntax}
 \end{figure}
 
-Der CLI-Befehl \texttt{makepackage} nimmt die Inventardatei und Presetdatei und generiert ein Ordner in dem alle Audiodateien die in der Inventardatei aufgelisteten sind sich befinden.
-Die Dateien des generierten Audiopakets haben als namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der SD-Karte abgespeichert wird.
+Der CLI-Befehl \texttt{makepackage} nimmt die Inventardatei und Presetdatei und generiert einen Ordner, in dem sich alle Audiodateien befinden, die in der Inventardatei aufgelisteten sind.
+Die Dateien des generierten Audiopakets haben als Namen nur noch eine Zahl, die bestimmt an welcher Stelle sie auf der $\mu$SD-Karte abgespeichert wird.
 
-Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die SD-Karte des Audioguides.
+Der CLI-Befehl \texttt{loadsd} nimmt das vorher generierte Audiopaket und schreibt es auf die $\mu$SD-Karte des Audioguides.
 Dazu schickt es dem Mikrocontroller den Befehl, dass er den Multiplexer umschaltet.
-Das Betriebsystem des PC sollte dann die SD-Karte mounten und dem Python Skript verfügbar machen, worauf dieses die Daten kopiert.
-Es wird dabei angenommen, dass nur ein Audioguide am PC angeschlossen ist und dass alle SD-Karten "dojo-sd" heissen.
+Das Betriebssystem des PC sollte dann die $\mu$SD-Karte mounten und dem Python Skript verfügbar machen, worauf dieses die Daten kopiert.
+Es wird dabei angenommen, dass nur ein Audioguide am PC angeschlossen ist und dass alle $\mu$SD-Karten "dojo-sd" heissen.
 
-Der CLI-Befehl \texttt{maketicket} nimmt die Inventardatei und die Presetdatei als Argumente und fragt den Nutzer, welche Ausstellungen und Sprache dem Besucher zur Verfügung stehen sollen. 
-Mit diesen Inputs wird ein Ticket generiert, das über die Serielle Schnittstelle auf das EEPROM des Mikrocontrollers geladen wird.
+Der CLI-Befehl \texttt{maketicket} nimmt die Inventardatei und die Presetdatei als Argumente und fragt den Nutzer, welche Ausstellungen dem Besucher in welcher Sprache zur Verfügung stehen sollen. 
+Mit diesen Inputs wird ein Ticket generiert, das über die serielle Schnittstelle auf das EEPROM des Mikrocontrollers geladen wird.
 
-Auf dem EEPROM hat jeder Beacon zwei Bytes, die die Beacon-ID, Like und Zutritt beinhalten.
-Die Likes sind zu Beginn des Besuchs alle auf Null und können vom Besucher gesetzt werden.
-Das Zutrittsbits der bezahlten Ausstellungen werden zu Beginn des Besuchs gesetzt und können vom Besucher nicht verändert werden.
+Auf dem EEPROM des Dojos sind jedem Beacon zwei Bytes zugeordnet, die die Beacon-ID, Like- und Zutrittsinformation beinhalten.
+Die Likes sind zu Beginn des Besuchs alle auf null und können vom Besucher gesetzt werden.
+Die Zutrittsbits der bezahlten Ausstellungen werden zu Beginn des Besuchs gesetzt und können vom Besucher nicht verändert werden.
 
 % In diesem Kapitel wird beschrieben wie die Konfigurationsdateien ausgelesen werden. Zudem wird die Korrespondenztabelle erläutert. 
 
@@ -75,7 +76,7 @@ Um ein Byte mit Wert 42 in die Adresse 2 zu schreiben, muss der String \texttt{p
 Um das Byte an der Adresse 2 auszulesen, muss der String \texttt{r002   ;} auf die serielle Schnittstelle geschrieben werden.
 Wichtig ist, dass alle Befehle mit einem Semikolon terminiert werden.
 
-Das Python Modul beinhaltet neben Schreib- und Lesefunktionen auch noch Funktionen, die ein ganzes Ticket auf das EEPROM schreiben können, bzw. wieder einlesen können.
+Das Python Modul beinhaltet neben Schreib- und Lesefunktionen auch noch Funktionen, die ein ganzes Ticket auf das EEPROM schreiben bzw. wieder einlesen können.
 Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs in Abbildung \ref{eeprom_memory_pattern} eingehalten wird.
 
 
@@ -98,7 +99,7 @@ Neben den einzelnen Funktionen wurde auch ein kompletter Durchlauf mit der Testd
 Die EEPROM-Operationen werden mit einem Arduino Uno-Board getestet, wobei das EEPROM vom PC aus beschrieben und wieder eingelesen wird.
 Die Unittests stellen sicher, dass das EEPROM die gewünschten Daten beinhaltet und dass diese mit der spezifizierten Geschwindigkeit übertragen werden.
 
-Es werden zudem noch Benchmarks durchgeführt, welche sicherstellen, dass nicht unnötig gewartet wird.
-Ein Test, der misst, wie lange das beschreiben von verschieden lange Tickets dauert zeigt, dass das beschreiben eines vollen Tickets mit 250 Beacons 6.17 dauert.
+Es werden zudem Benchmarks durchgeführt, welche sicherstellen, dass nicht unnötig gewartet wird.
+Ein Test, der misst wie lange das Beschreiben von verschieden langen Tickets dauert, zeigt, dass das Beschreiben eines vollen Tickets mit 250 Beacons $6.17s$ dauert.
 % Hier werden die Python Unittests, welche verwendet wurden, dargelegt.
 
