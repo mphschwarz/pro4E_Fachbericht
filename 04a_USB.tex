@@ -11,7 +11,7 @@ Im folgenden Kapitel wird erklärt, wie über die USB-Schnittstelle Daten auf de
 Nachfolgend werden einige Begriffe zur Datenübertragung kurz erklärt, welche im Kapitel von Bedeutung sind.
 
 \paragraph{UART}
-Universal Asynchronous Receiver Transmitter (UART) realisiert eine digitale serielle Schnittstelle. Über die UART-Schnittstelle können Daten über einen Datenstrom gesendet und empfangen werden. Die Daten sind in einem fixen Rahmen, bestehend aus Start-Bit, fünf bis neun Datenbits, optionalem Parity-Bit zur Fehlererkennung und einem Stopp-Bit.
+Universal Asynchronous Receiver Transmitter (UART) realisiert eine digitale serielle Schnittstelle. Über die UART-Schnittstelle können Daten über einen Datenstrom gesendet und empfangen werden. Die Daten sind in einem fixen Rahmen, bestehend aus Start-Bit, fünf bis neun Datenbits, optionalem Parity-Bit zur Fehlererkennung und einem Stopp-Bit \cite{UARTdefinition}.
 
 \paragraph{SDIO}
 Secure Digital Input Output (SDIO) bezeichnet ein Interface für die Datenübertragung zwischen SD-Karten. Die Daten werden wahlweise im SPI, 1-Bit oder im 4-Bit Modus übertragen.
@@ -28,7 +28,7 @@ Zur Kommunikation mit dem Mikrocontroller im Gerät besteht eine USB-UART-Schnit
 \end{figure}
 
 Eine micro USB-Typ B Schnittstelle ist die gemeinsame Schnittstelle nach aussen. Dahinter schaltet ein USB-Switch, gesteuert durch den Mikrocontroller, einen der beiden Pfade durch. Es kann jeweils entweder der SDIO-Pfad oder UART-Pfad durchgeschaltet werden, nie beide Pfade gleichzeitig.\newline
-Als USB-Switch wird der Baustein TS3USB30E von Texas Instruments verwendet. Dieser Chip wurde dafür entwickelt, um high-speed USB 2.0 Signale in portablen Geräten und Konsumelektronik zu schalten. Gesteuert wird der USB-Switch über zwei Pins. Über den Enable-Pin kann der Baustein in einen hochohmigen Zustand gebracht werden, um den Bus nicht zu belasten und den Stromverbrauch zu senken. Mit dem Select-Pin wird der durchzuschaltende Pfad ausgewählt.
+Als USB-Switch wird der Baustein TS3USB30E von Texas Instruments verwendet. Dieser Chip wurde dafür entwickelt, um high-speed USB 2.0 Signale in portablen Geräten und Konsumelektronik zu schalten. Gesteuert wird der USB-Switch über zwei Pins. Über den Enable-Pin kann der Baustein in einen hochohmigen Zustand gebracht werden, um den Bus nicht zu belasten und den Stromverbrauch zu senken. Mit dem Select-Pin wird der durchzuschaltende Pfad ausgewählt \cite{DatasheetTS3USB}.
 
 Folgende Tabelle \ref{truth_table_usb} zeigt die Wahrheitstabelle für die entsprechenden Pfade:
 \begin{table}[h]
@@ -48,15 +48,15 @@ Folgende Tabelle \ref{truth_table_usb} zeigt die Wahrheitstabelle für die entsp
 
 \section{USB zu UART}
 
-Der Baustein FT231X von FTDI stellt das Interface von USB zu UART bereit. Das ganze USB-Protokoll wird dabei auf dem Chip abgehandelt und es sind kaum zusätzliche Bauteile nötig (siehe Schema). Über zwei Pins (Rx und Tx) werden die Daten seriell übertragen.
+Der Baustein FT231X von FTDI stellt das Interface von USB zu UART bereit. Das ganze USB-Protokoll wird dabei auf dem Chip abgehandelt und es sind kaum zusätzliche Bauteile nötig (siehe Schema im \nameref{Anhang}). Über zwei Pins (Rx und Tx) werden die Daten seriell übertragen.
 
-Bei aktivem UART-Pfad wird der Dojo am Computer als serielle Schnittstelle erkannt. Über diese Schnittstelle kommuniziert nun die Software auf dem Computer mit dem Mikrocontroller im Gerät, um beispielsweise die \flq Likes\frq  auszulesen.
+Bei aktivem UART-Pfad wird der Dojo am Computer als serielle Schnittstelle erkannt. Über diese Schnittstelle kommuniziert nun die Software auf dem Computer mit dem Mikrocontroller im Gerät, um beispielsweise die \flq Likes\frq  auszulesen oder die Audiofileübertragung einzuleiten.
 
 
 \section{USB zu SDIO}
 
 Der VUB300 Chip vom Hersteller elan stellt das USB zu SDIO Interface bereit. Damit kann die SD-Karte im Dojo über den USB-Anschluss beschrieben und ausgelesen werden. Wird mit dem USB-Switch der SDIO-Pfad durchgeschaltet, erscheint die SD-Karte am Computer als Datenträger und kann gelesen sowie beschrieben werden. Zu beachten ist, dass zwischen dem VUB300 Chip und der SD-Karte noch ein weiterer Multiplexer (MUX) eingebaut ist. Mit diesem wird die SD-Karte zwischen dem VUB300 und dem Audio-Chip umgeschaltet. Genaueres dazu findet man in Abschnitt \textbf{\ref{Audioausgabe} \nameref{Audioausgabe}}.
-Damit die SD-Karte mit dem SDIO-Pfad verbunden ist, muss der MUX TS3A27518 (siehe Schema im Anhang) folgendermassen angesteuert werden:
+Damit die SD-Karte mit dem SDIO-Pfad verbunden ist, muss der MUX TS3A27518 (siehe Schema im \nameref{Anhang}) folgendermassen angesteuert werden:
 
 \begin{table}[h]
 	\centering

@@ -1,5 +1,17 @@
 \begin{thebibliography}{1}
 
+\bibitem{UARTdefinition}
+Matthias Meier.
+\newblock {Digitaltechnik 1}.
+\newblock Skript, 2016.
+\newblock [Unpubliziertes Dokument].
+
+\bibitem{DatasheetTS3USB}
+Texas Instruments.
+\newblock {TS3USB30}.
+\newblock \url{https://www.ti.com/lit/ds/symlink/ts3usb30.pdf}, 2007.
+\newblock [Online Available: 11.06.2018].
+
 \bibitem{WTV020}
 Emartee.
 \newblock {WTV010 \& WTV020}.
