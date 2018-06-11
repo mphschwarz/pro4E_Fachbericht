@@ -25,4 +25,13 @@
   note         = {[Online Available: 10.06.2018]},
 }
 
+@Misc{a,
+  author       = {Atmel},
+  title        = {{ATMega328/P}},
+  howpublished = {Datenblatt},
+  month        = nov,
+  year         = {2011},
+  timestamp    = {2018-06-11},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

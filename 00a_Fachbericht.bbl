@@ -5,15 +5,14 @@ Emartee.
 \newblock {WTV010 \& WTV020}.
 \newblock Datenblatt, April 2011.
 
-\bibitem{BoneConductor}
-Adafruit.
-\newblock {Bone Conductor Transducer with Wires}.
-\newblock \url{https://www.adafruit.com/category/product/1674}, keine Angaben.
-\newblock [Online Available: 10.06.2018].
-
 \bibitem{hm11Datasheet}
 JN~Huamao~Technology Company.
 \newblock {B}luetooth 4.0 {BLE} module.
 \newblock Datenblatt, July 2017.
+
+\bibitem{atmega328p}
+Atmel.
+\newblock {ATMega328/P}.
+\newblock Datenblatt, November 2011.
 
 \end{thebibliography}
