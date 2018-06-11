@@ -86,12 +86,25 @@ void sendWTVcommand(unsigned int command){
 
 
 Die benötigten Befehle welche sendWTVcommand mitgegeben werden müssen sind aufgrund des WTV020-Chips vorgefertigt.
-Nachfolgend werden die verwendeten Befehle aufgeführt.\\
+Nachfolgend werden die verwendeten Befehle und deren Funktion aufgeführt.\\
 
-OPCODE\_PLAY\_PAUSE: OPCODE\_PLAY\_PAUSE muss default mässig auf 0xFFE gesetzt werden. Dies ermöglicht es eine Datei abzuspielen und zu pausieren. Um die Ausgabe zu starten muss immer am Anfang die gewünschte File Nummer mitgegeben werden (0-512). Ohne File Nummer wird die Audioausgabe pausiert und kann wieder gestartet werden.  \\
-OPCODE\_STOP: Dies stoppt die laufende Datei und setzt diese zurück.\\
-OPCODE\_VOL: OPCODE\_VOL muss am Anfang auf 0xFFF0 gesetzt werden. Dies ermöglicht die Lautstärken Regulierung wobei 0xFFF0 den Aktor auf stumm schaltet und 0xFFF7 die maximale Lautstärke ausgibt. \\
-Für die Audioausgabe wurden OPECODE\_PLAY\_PAUSE und OPCODE\_VOL verwendet. Durch diese ist es möglich die gewünschten Funktionen umzusetzen. 
+	
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|} 
+		Funktion & Befehl\\ 
+		\hline 
+		Play\_Pause & 0xFFFE \\ 
+		\hline 
+		STOP & 0xFFFF \\ 
+		\hline 
+		VOL & 0xFFF0-0xFFF7 \\ 
+	\end{tabular} 
+	\caption{WTV020 Funktionen}
+	\label{WTVFunktionen}
+\end{table} 
+
+Bei der Funktion Play\_Pause ist zu erwähnen, dass um die Ausgabe zu starten am Anfang die gewünschte File Nummer gesendet werden muss (0-512). Ohne File Nummer wird die aktuelle Audioausgabe pausiert und kann wieder gestartet werden.
 
 \section{Validierung}
 Um die Audioausgabe zu testen, wurden verschiedene Versuche durchgeführt. Zuerst wurde der Bone Conductor über eine kleine Verstärkerschaltung direkt an einem Laptop angeschlossen, um die benötigte Leistung und die Lautstärke abschätzen zu können. Bei diesen Messungen ergab sich, bei einer sehr gut hörbaren Lautstärke, eine maximale Scheinleistung von 0.28 VA.\\
