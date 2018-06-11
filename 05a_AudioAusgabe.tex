@@ -31,12 +31,12 @@ Das Konzept der Audioausgabe ist wie folgt aufgebaut:
 	\includegraphics[width=11cm]{Bilder/Audio-Konzept.jpg}
 	\caption{Audio Konzept}
 	\label{Audio-Konzept}
-\end{figure}
+\end{figure}\\
 Die auf einer $\mu$SD-Karte abgespeicherten Audiodateien werden über einen Multiplexer, welcher vom Mikrocontroller gesteuert wird, an einen WTV020 Chip übertragen. Dieser wird in einem Serial Mode \ref{TechWTV} betrieben und kann ebenfalls vom Mikrocontroller angesteuert werden. Der Audiochip entschlüsselt die Daten und gibt diese an einen Klasse D Verstärker weiter. Dieser wird benötigt, um eine gut hörbare Lautstärke zu erreichen. Das Audiosignal wird schliesslich an einem Bone Conductor ausgegeben. 
 Nachfolgend wird die Anordnung auf dem Print der einzelnen Komponenten dargelegt. 
 \section{Hardware}
 Wie im Konzept \ref{AudioKonzept}
- beschrieben, muss man, um Daten von der $\mu$SD-Karte auszulesen zuerst den Multiplexer ansteuern. Dies geschieht über den Mikrocontroller. Im ungesteuerten Zustand ist der MUX auf den VUB300 geschaltet. Sobald der MUX entsprechend angesteuert wird, schalten die benötigten Kontakte. Der WTV020SD-20S Chip kann nun auf die $\mu$SD-Karte zugreifen. Über vier Pins werden die Audiofiles ausgelesen und weitergegeben. Das Audiosignal wird auf den Klasse-D Verstärker gegeben. Dieser ist wie folgt aufgebaut.
+ beschrieben, muss man, um Daten von der $\mu$SD-Karte auszulesen zuerst den Multiplexer ansteuern. Dies geschieht über den Mikrocontroller. Im ungesteuerten Zustand ist der MUX auf den WTV020-Chip geschaltet. Der WTV020SD-20S Chip kann nun auf die $\mu$SD-Karte zugreifen. Über vier Pins werden die Audiofiles ausgelesen und weitergegeben. Das Audiosignal wird auf den Klasse-D Verstärker gegeben. Dieser ist wie folgt aufgebaut.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=10cm]{Bilder/Klasse-D.jpg}
@@ -45,25 +45,18 @@ Wie im Konzept \ref{AudioKonzept}
 \end{figure}
 
 
-Um ein Rauschen an der Speisung zu vermeiden, wird ein 1$\mu$ Farad grosser Kondensator benötigt. In diesem Projekt wurde zuerst eine konstante Verstärkung mit dem Faktor ca.10 verwendet, da die Lautstärken Regelung über den WTV020-Chip geregelt werden soll. Dieser Faktor entsteht aus dem Verhältnis des Internen Widerstandes und den zugeschalteten Widerständen. Um das Rauschen der Eingänge, sowie zu hohe Frequenzen zu filtern wurden zuerst wie die Abbildung \ref{Klasse-D} zeigt, Kapazitäten eingeplant. Auf dem Prototyp wurden aufgrund von Tests welche in der Validierung aufgeführt werden, die Vorwiderstände durch Kapazitäten ersetzt und die geplanten Kapazitäten weggelassen.\\ Wie erwähnt wird die Lautstärkenregelung über den WTV020-Chip geregelt. Dies ist jedoch im serial mode fehleranfällig. Aufgrund dessen wurde für die Tests ein 50 Ohm grosser Widerstand vor den Bone Conductor geschaltet um die Innenimpedanz des Bone Conductors auszugleichen. Die Audioausgabe kann also wie beschrieben mit dem Bone Conductor umgesetzt werden.
+Um ein Rauschen an der Speisung zu vermeiden, wird ein 1$\mu$ Farad grosser Kondensator benötigt. In diesem Projekt wurde zuerst eine konstante Verstärkung mit dem Faktor ca.10 verwendet, da die Lautstärken Regelung über den WTV020-Chip geregelt werden soll. Dieser Faktor entsteht aus dem Verhältnis des Internen Widerstandes und den zugeschalteten Widerständen. Um das Rauschen der Eingänge, sowie zu hohe Frequenzen zu filtern wurden zuerst wie die Abbildung \ref{Klasse-D} zeigt, Kapazitäten eingeplant. Auf dem Prototyp wurden aufgrund von Tests welche in der Validierung aufgeführt werden, die Vorwiderstände durch Kapazitäten ersetzt und die geplanten Kapazitäten weggelassen.\\ Wie erwähnt wird die Lautstärkenregelung über den WTV020-Chip geregelt. Dies ist jedoch im serial mode fehleranfällig. Übergangsweise wurde um die Lautstärke zu dämmen ein 50 Ohm grosser Widerstand vor den Bone Conductor geschaltet. Die Audioausgabe kann also wie beschrieben mit dem Bone Conductor umgesetzt werden.
 
 \section{Firmware}
-Wie im Kapitel Hardware beschrieben muss der MUX angesteuert werden um dem WTV-Chip den Zugriff auf die $\mu$SD-Karte zu gewähren. Die folgende Tabelle zeigt wie der MUX angesteuert werden muss, damit die benötigten Pins durgeschalten sind.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=15cm]{Bilder/MuxTab.jpg}
-	\caption{MUX, TS3A27518 Funktionstabelle}
-	\label{MUX-Tabelle}
-\end{figure}
-
+Wie im Kapitel Hardware beschrieben muss der MUX angesteuert werden um dem WTV-Chip den Zugriff auf die $\mu$SD-Karte zu gewähren. Im Kapitel \ref{USB} in der Tabelle \ref{truth_table_sd} ist beschrieben wie der MUX angesteuert werden muss, damit die benötigten Pins durchgeschaltet sind.
 Für die Audioausgabe müssen alle Öffner geschlossen werden. Dies wird über die Pins 25 – 27 (Port C) realisiert. Sobald Musik abgespielt werden muss, werden die benötigten Ausgänge gesetzt. Das  WTV020 Modul vergleicht die Daten und Clock Pins wie folgt :
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=15cm]{Bilder/WTV-Serial-Mode.JPG}
 	\caption{WTV Serial Mode}
 	\label{WTV-Serial}
-\end{figure}
+\end{figure}\\
+In der Abbildung \ref{WTV-Serial} ist ein three line serial mode dargestellt. Für den benötigten two line serial mode wird der CS Pin nicht benötigt.
 \newpage
 Sobald am Pin 7 über einen Taster Play ein low Signal erkannt wird, wird folgende Funktion aufgerufen:
 
@@ -87,21 +80,35 @@ void sendWTVcommand(unsigned int command){
 	}
 }
 	\end{verbatim}
-	\caption{Audio Datei abspielen }
+	\caption{Audio Datei abspielen \cite{WTVCODE}}
 	\label{WTV-Play}
 \end{figure}
 
 
 Die benötigten Befehle welche sendWTVcommand mitgegeben werden müssen sind aufgrund des WTV020-Chips vorgefertigt.
-Nachfolgend werden die verwendeten Befehle aufgeführt.\\
-OPCODE\_PLAY\_PAUSE: OPCODE\_PLAY\_PAUSE muss default mässig auf 0xFFE gesetzt werden. Dies ermöglicht es eine Datei abzuspielen und zu pausieren. Um die Ausgabe zu starten muss immer am Anfang die gewünschte File Nummer mitgegeben werden (0-512). Ohne File Nummer wird die Audioausgabe pausiert und kann wieder gestartet werden.  \\
-OPCODE\_STOP: Dies stoppt die laufende Datei und setzt diese zurück.\\
-OPCODE\_VOL: OPCODE\_VOL muss am Anfang auf 0xFFF0 gesetzt werden. Dies ermöglicht die Lautstärken Regulierung wobei 0xFFF0 den Aktor auf stumm schaltet und 0xFFF7 die maximale Lautstärke ausgibt. \\
-Für die Audioausgabe wurden OPECODE\_PLAY\_PAUSE und OPCODE\_VOL verwendet. Durch diese ist es möglich die gewünschten Funktionen umzusetzen. 
+Nachfolgend werden die verwendeten Befehle und deren Funktion aufgeführt.\\
+
+	
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|} 
+		Funktion & Befehl\\ 
+		\hline 
+		Play\_Pause & 0xFFFE \\ 
+		\hline 
+		STOP & 0xFFFF \\ 
+		\hline 
+		VOL & 0xFFF0-0xFFF7 \\ 
+	\end{tabular} 
+	\caption{WTV020 Funktionen}
+	\label{WTVFunktionen}
+\end{table} 
+
+Bei der Funktion Play\_Pause ist zu erwähnen, dass um die Ausgabe zu starten am Anfang die gewünschte File Nummer gesendet werden muss (0-512). Ohne File Nummer wird die aktuelle Audioausgabe pausiert und kann wieder gestartet werden.
 
 \section{Validierung}
 Um die Audioausgabe zu testen, wurden verschiedene Versuche durchgeführt. Zuerst wurde der Bone Conductor über eine kleine Verstärkerschaltung direkt an einem Laptop angeschlossen, um die benötigte Leistung und die Lautstärke abschätzen zu können. Bei diesen Messungen ergab sich, bei einer sehr gut hörbaren Lautstärke, eine maximale Scheinleistung von 0.28 VA.\\
-Um das WTV020 Modul zu überprüfen musste dieses zuerst im MP3 Mode betrieben werden.
-So konnten nicht kompatible $\mu$SD-Karten aussortiert werden. \\
-Alle Funktionen des WTV020-Chips wurden separat überprüft. Alle verlangten Funktionen des Chips laufen wunschgemäss. Zudem wurde ein Versuchsaufbau mit dem D-Klasse Verstärker durchgeführt, mit welchem die aktuell maximal benötigte Leistung von 1.5W gemessen wurde. \\
+Um das WTV020 Modul mit geringem Aufwand zu testen wurde dieses zuerst im MP3 Mode betrieben.
+So konnten schon am Anfang nicht kompatible $\mu$SD-Karten aussortiert werden. \\
+Alle Funktionen des WTV020-Chips wurden separat und im two line serial mode überprüft. Alle verlangten Funktionen des Chips laufen Wunschgemäss. Zudem wurde ein Versuchsaufbau mit dem D-Klasse Verstärker durchgeführt, mit welchem die aktuell maximal benötigte Leistung von 1W gemessen wurde. \\
 Trotz der funktionierenden Tests ist aktuell am Prototyp die Lautstärkenregelung nicht möglich. Das Audiomodul übernimmt die eingestellte Lautstärke, setzt diese jedoch, sobald das Gerät an einen Verstärker angeschlossen ist, vorherigen Wert zurück. Zudem ist zu erwähnen, dass für eine Massenproduktion ein WTV020 Modul nicht geeignet wäre, aufgrund der erwähnten Eigenheiten. Das Modul nimmt trotz gleicher Formatierung und gleichem Hersteller nicht jede $\mu$SD-Karten an. Zudem treten beim serial mode immer wieder kleiner Ungereimtheiten auf, wie z.B. die Lautstärkenregelung. 

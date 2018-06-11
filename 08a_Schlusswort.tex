@@ -1,0 +1,11 @@
+\chapter{Schlusswort}
+\label{Schlusswort}
+% ================ Einstellungen =======================
+\thispagestyle{fancy} \rhead{\slshape Schlusswort} 
+% ======================================================
+
+Der realisierte Prototyp ist in der Lage über BLE Beacons zu erkennen, eine entsprechende Rückmeldung über den Vibrationsmotor oder eine LED zu geben und ein zugehöriges Audiofile abzuspielen. Ausserdem kann die eingebaute $\mu$SD-Karte gelesen und beschrieben werden. Mit einem einfachen Command Line Interface, programmiert in Python, kann der Prototyp konfiguriert und \flq Likes\frq ausgelesen werden. Aus zeitlichen Gründen konnte die Übertragung des Konfigurationsfiles sowie die Auswertung der \flq Likes\frq noch nicht in das Gesamtsystem eingebettet werden. Das Konzept und die Software ist vorhanden, muss jedoch noch auf die Firmware des Mikrocontrollers abgestimmt werden.
+
+Am Anfang des Projekts, wurde die USB Verbindung zur $\mu$SD-Karte, sowie die Umschaltung des Signals mit dem USB-Switch als sehr anspruchsvoll und fehleranfällig eingeschätzt. Durch sorgfältige Recherche und exaktem Layout wurden diese Hürden gut gemeistert. Durch die geringe Informationsmenge über den Audiochip WTV020 und seinen Eigenheiten, stellte sich seine Handhabung als anspruchsvoll heraus. Daraus resultierten einige Probleme im Verlaufe der Entwicklungsphase.
+
+Bei einer allfälligen Weiterentwicklung des Produkts, sollte das Konzept überarbeitet werden. Eine Variante mit leistungsfähigerem Mikrocontroller bietet sich dabei an. Die Handhabung der $\mu$SD-Karte und Dekodierung der Audiofiles würde auf dem Mikrocontroller stattfinden. Dadurch kann das Kompatibilitätsproblem mit dem VUB300 Chip und Windows gelöst werden und man umgeht die Eigenheiten und Einschränkungen des WTV020 Soundchips.
