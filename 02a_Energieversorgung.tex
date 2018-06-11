@@ -12,15 +12,12 @@ Die maximale Grösse des Akkus war durch das designte Gehäuse bereits vorgegebe
 
 Die ursprüngliche Energiebedarfsberechnung der wichtigsten Komponenten hat bei einer durchschnittlichen Nutzung von zehn Stunden einen Speicherbedarf von $400mAh$ ergeben. Es wurde angenommen, dass das Dojo während einem Drittel der Zeit aktiv genutzt und in der übrigen Zeit in Standby-Modus versetzt wird.\\ 
 
-
-%In diesem unter Kapitel werden die technischen Grundlagen für das Verständnis der Energieversorgung dargelegt.
-%\section{Konzept}
-%Hier wird das verwendete Konzept der Energieversorgung respektive der Ladeschaltung erklärt und begründet. 
+ 
 \section{Akku, Ladesteuerung und Spannungsregelung}
 
 Aufgrund der Voraussetzungen wurde bei der Suche auf Akkus des Typen LI14500 fokussiert, Lithium-Akkus mit einem Durchmesser von $14mm$ und einer Länge von $50mm$. Diese Standardgrösse ist für das vorgegebene Gehäuse etwas zu gross, weshalb es etwas angepasst werden muss. Die Grösse solcher Akkus mit den Anforderungen der Energiekapazität sind auf dem Markt auffindbar.\\
 
-Das Dojo wird über den integrierten USB-Anschluss aufgeladen. Die Ladesteuerung ist Aufgabe des MCP7383 von Microchip . Dieser Ladesteuerungs-IC benötigt wenige zusätzliche Bauteile und ist daher ideal für portable Geräte wie das Dojo geeignet, er arbeitet nach dem Prinzip constand-current / constant-voltage. Die Ladeschaltung ist auf der Hauptplatine integriert. Die verwendete Standardbeschaltung ist auf Abbildung \ref{fig:Ladeschaltung} ersichtlich.\\
+Das Dojo wird über den integrierten USB-Anschluss aufgeladen. Die Ladesteuerung ist Aufgabe des MCP7383 von Microchip . Dieser Ladesteuerungs-IC benötigt wenige zusätzliche Bauteile und ist daher ideal für portable Geräte wie das Dojo geeignet, er arbeitet nach dem Prinzip constand-current / constant-voltage. Die Ladeschaltung ist auf der Hauptplatine integriert. Die verwendete Standardbeschaltung ist auf Abbildung \ref{fig:Ladeschaltung} ersichtlich, die Ladekurve ist in Abbildung \ref{fig:Ladekurve} dargestellt. In der Ladekurve ist gut zu erkennen, wie die Spannung gegen Ende der Ladung konstant gehalten und der Strom reduziert wird.\\
 
 %%%%%%
 \begin{figure}[htp]
@@ -31,10 +28,20 @@ Das Dojo wird über den integrierten USB-Anschluss aufgeladen. Die Ladesteuerung
 \end{figure}
 %%%%%%
 
+%%%%%%
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=15cm]{Bilder/Ladekurve.JPG}
+	 \caption{Ladekurve des Emmerich-Akkus}
+	 \label{fig:Ladekurve}
+\end{figure}
+%%%%%%
+
+%-> Ladekurve (und entsprechende Referenzierung) evtl. wieder entfernen. Ist an dieser Stelle eigentlich sowieso nicht ganz korrekt, die Entladekurve wurde nämlich nicht zusammen mit dem Print und der entsprechenden Ladeschaltung auf dem Print generiert, sondern nur mit dem Akku direkt am Akkulade-/Entladegerät...
+
 Um die interne Spannungsversorgung auf einem konstanten Niveau zu halten, ist dem Akku der LDO (Low Drop-Out) TC1262 von Microchip nachgeschaltet. Dieser regelt die Betriebsspannung auf $3.3V$, liefert bis zu $500mA$ und ist selbst sehr energiesparend.
 
 
-%Hier steht welche Bauteile in welcher Anordnung verwendet wurden.
 \section{Validierung}
 
 Nach Empfang des Emmerich-Akkus konnte dieser erfolgreich mit dem angefertigten Prototyp des Dojo-Prints in Betrieb genommen werden. Um die tatsächliche Kapazität des Akkus zu bestimmen und um zu verifizieren, ob die Lieferantenangabe stimmt, wurde der Akku in verschiedenen Durchläufen getestet. Die Tests wurden mit dem ``Battery Charging Centre ALC 8500-2 Expert'' von der ELV Elektronik AG durchgeführt (Abbildung \ref{fig:ALCExpert}). Zu diesem Testgerät gibt es eine PC-Software (Abbildung \ref{fig:ChargeProfessional}), mit der Parameter wie die Art des Akkus, Kapazität, Spannung aber auch das gewünschte Lade- / Entladeprofil eingestellt werden können. Während dem Vorgang, also dem Laden oder Entladen des Akkus, speichert das Gerät alle fünf Sekunden die Werte der aktuellen Spannung, des aktuellen Stromes sowie der summierten Kapazität in mAh. Anschliessend können die abgespeicherten Werte zur weiteren Auswertung über die PC-Software in eine Tabelle exportiert werden.\\
@@ -57,7 +64,7 @@ Nach Empfang des Emmerich-Akkus konnte dieser erfolgreich mit dem angefertigten 
 \end{figure}
 %%%%%%
 
-Der Akku wurde mit unterschiedlichen Entlade-/Ladezyklen getestet. Für den geprüften Akku von Emmerich konnte bei Entladung mit einer anfänglichen Spannung von $4.1V$ eine Kapazität von $827mAh$ gemessen werden bis der Tiefentladeschutz die Entladung bei $2.7V$ gestoppt hat. Bis zum Erreichen der internen Versorgungsspannung von $3.3V$, die im Betrieb des Dojos gehalten werden muss, konnte eine Kapazität von immerhin noch $788mAh$ festgestellt werden. Mit diesen gemessenen Werten stimmt der Akku mit den Datenblattwerten überein.\\
+Der Akku wurde mit unterschiedlichen Entlade-/Ladezyklen getestet. Für den geprüften Akku von Emmerich konnte bei Entladung mit einer anfänglichen Spannung von $4.1V$ eine Kapazität von $827mAh$ gemessen werden bis der Tiefentladeschutz die Entladung bei $2.7V$ gestoppt hat. Bis zum Erreichen der internen Versorgungsspannung von $3.3V$, die im Betrieb des Dojos gehalten werden muss, konnte eine Kapazität von immerhin noch $788mAh$ festgestellt werden. Mit diesen gemessenen Werten stimmt der Akku mit den Datenblattwerten überein. Eine Entladekurve wird in Abbildung \ref{fig:Entladekurve} gezeigt.\\
 
 %%%%%%
 \begin{figure}[htp]
@@ -79,13 +86,11 @@ Des Weiteren wurde das Ladeverhalten des Akkus, wenn er am Prototyp angeschlosse
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=10cm]{Bilder/StrommessungAkku.JPG}
-	 \caption{Versuchsanordnung für die Strommessung am Akku}
+	 \caption{Anordnung für die Strommessung am Akku}
 	 \label{fig:StrommessungAkku}
 \end{figure}
 %%%%%%
 
-
-%Hier wird erklärt, wie die Validierung der Ladeschaltung gelöst wurde. Die Resultate der Validierung (der Energieversorgung) und die eventuellen Abweichungen zu den Wünschen werden in diesem Kapitel beschrieben.
 
 \section{Fazit und Empfehlungen für das weitere Vorgehen}
 
