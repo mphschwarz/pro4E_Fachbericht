@@ -72,15 +72,21 @@ Die Zutrittsbits der bezahlten Ausstellungen werden zu Beginn des Besuchs gesetz
 \section{Auslesen, Schreiben}
 Das EEPROM des Mikrocontrollers wird über eine serielle Schnittstelle beschrieben, wobei alle Befehle das gleiche Muster haben:
 \begin{verbatim} [1 char] op-code | [3 char] arg1 | [3 char] arg2 ; \end{verbatim}
+\begin{table}[h]
+	\begin{tabular}{lr}
+		Wert x=10 in Addresse y=2 schreiben: & \texttt{p002010;} \\
+		Wert x aus Addresse y=60 lesen:      & \texttt{r060000;} \\
+	\end{tabular}
+\end{table}
 Um ein Byte mit Wert 42 in die Adresse 2 zu schreiben, muss der String \texttt{p002042} auf die serielle Schnittstelle geschrieben werden.
-Um das Byte an der Adresse 2 auszulesen, muss der String \texttt{r002   ;} auf die serielle Schnittstelle geschrieben werden.
+Um das Byte an der Adresse 2 auszulesen, muss der String \texttt{r002000;} auf die serielle Schnittstelle geschrieben werden.
 Wichtig ist, dass alle Befehle mit einem Semikolon terminiert werden.
 
 Das Python Modul beinhaltet neben Schreib- und Lesefunktionen auch noch Funktionen, die ein ganzes Ticket auf das EEPROM schreiben bzw. wieder einlesen können.
 Hier ist es wichtig, dass das vordefinierte Muster des EEPROMs in Abbildung \ref{eeprom_memory_pattern} eingehalten wird.
 
 
-\begin{figure}
+\begin{figure}[h]
 	\begin{tabular}{l|l}
 		Anzahl gespeicherter Beacons & Sprachcode                      \\ \hline
 		ID Beacon1                   & Like Beacon1, Zutritt Beacon1   \\ \hline
