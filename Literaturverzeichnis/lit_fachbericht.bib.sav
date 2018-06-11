@@ -1,0 +1,28 @@
+% Encoding: UTF-8
+
+@Misc{hm11Datasheet,
+  author       = {JN Huamao Technology Company},
+  title        = {{B}luetooth 4.0 {BLE} module},
+  howpublished = {Datenblatt},
+  month        = jul,
+  year         = {2017},
+  timestamp    = {2018-06-09},
+}
+
+@Misc{WTV020,
+  author       = {Emartee},
+  title        = {{WTV010 \& WTV020}},
+  howpublished = {Datenblatt},
+  month        = apr,
+  year         = {2011},
+}
+
+@Misc{B,
+  author       = {Adafruit},
+  title        = {{Bone Conductor Transducer with Wires}},
+  howpublished = {\url{https://www.adafruit.com/category/product/1674}},
+  year         = {keine Angaben},
+  note         = {[Online Available: 10.06.2018]},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
