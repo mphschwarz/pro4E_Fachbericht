@@ -3,8 +3,18 @@
 % ================ Einstellungen =======================
 \thispagestyle{fancy} \rhead{\slshape Energieversorgung}
 % ======================================================
+
+Wie in allen Bereichen des vorliegenden Projekts geht es auch im Bereich der Energieversorgung darum, aus dem verfügbaren Raum, kosteneffizient eine möglichst gute Performance zu erhalten. Um dies zu gewährleisten, muss der Energiebedarf der Elektronik auf ein Minimum reduziert werden. Mit der Auswahl von energieeffizienten Komponenten und einem effizienten Ablauf im Programmcode, kann dem entgegengewirkt werden. Der Energiebedarf von Komponenten, die gerade nicht in Verwendung sind, kann so erheblich reduziert werden. Wird zum Beispiel der Mikrocontroller nicht aktiv verwendet, versetzt er sich in einen energiesparenden Bereitschaftsmodus, der einen wesentlich geringeren Verbrauch hat.
+
 \section{Technische Grundlagen}
-In diesem unter Kapitel werden die technischen Grundlagen für das Verständnis der Energieversorgung dargelegt.
+ 
+Die maximale Grösse des Akkus war durch das designte Gehäuse bereits vorgegeben. Somit konnte eine einfache Auswahl getroffen werden. Um den Energiebedarf des Dojos abzuschätzen, wurde zu Beginn der Projektarbeit eine Energiebedarfsberechnung anhand von Datenblattangaben der verwendeten Komponenten gemacht. Die Berechnungen haben gezeigt, dass das Wunschziel, die Akkulaufzeit des Dojos auf einen ganzen Museumstag auszulegen, ins Auge gefasst werden kann. Dies führt im Museum zu einer hohen Verfügbarkeit solcher Geräte.  Das Museum benötigt so wesentlich weniger Geräte und muss nicht ständig die Geräte auswechseln und aufladen. Ausserdem verringert sich der Arbeitsaufwand, da die Dojos nicht in jeder freien Minute ins Ladegerät gesteckt werden müssen, sondern ein Ladezyklus über Nacht ausreicht.\\
+
+Die ursprüngliche Energiebedarfsberechnung der wichtigsten Komponenten hat bei einer durchschnittlichen Nutzung von zehn Stunden einen Speicherbedarf von 400 mAh ergeben. Es wurde angenommen, dass das Dojo während einem Drittel der Zeit aktiv genutzt und in der übrigen Zeit in Standby-Modus versetzt wird. 
+
+
+
+%In diesem unter Kapitel werden die technischen Grundlagen für das Verständnis der Energieversorgung dargelegt.
 \section{Konzept}
 Hier wird das verwendete Konzept der Energieversorgung respektive der Ladeschaltung erklärt und begründet. 
 \section{Hardware}
