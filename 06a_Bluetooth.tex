@@ -49,7 +49,7 @@ Mittels der Funktion scan() im State SCAN wird mit dem HM-11 nach den verfügbar
 \includegraphics[scale=0.7]{Bilder/disi_command.PNG} 
 \caption[Rückgabe des AT+DISI? Befehls]{P0: Factory ID (8 Byte); P1: IBeacon UUID (32 Byte); P2: Major-, Minorvalue, Measured Power (10 Byte); P3: Media-Access-Control-Adresse MAC (12 Byte); P4: RSSI (4 Byte) \cite{hm11Datasheet}}
 \label{fig:disiCommand}
-\end{figure}
+\end{figure}\\
 Dafür wird vom MCU jeder char, rsp. jedes Byte vom Datenbuffer ausgelesen und verwertet. Es wird zuerst nach einer UUID eines IBeacons gefiltert und dann die ersten drei Zahlen in einen Integer gecastet. Anschließend soll das Majorvalue\footnote{Major- und Minorvalues dienen hauptsächlich zur zusätzlichen Identifikation eines IBeacons}, welches einen bestimmten, selbst wählbaren Wert hat, abgeglichen werden, damit nur die IBeacons berücksichtig werden, welche relevant sind. Ist der empfangene RSSI-Wert grösser als $-90dbm$, wird der IBeacon eingespeichert. Dies wird mit jedem empfangenen IBeacon wiederholt und immer die RSSI-Werte miteinander verglichen, wobei dann der IBeacon mit dem grösseren RSSI-Wert ins System gespeichert und als Returnvalue von der scan() Funktion zurückgegeben wird.
 
 \section{Validierung}
