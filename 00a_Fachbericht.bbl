@@ -23,6 +23,25 @@ Sparkfun.
 \newblock \url{https://github.com/sparkfun/Audio-Sound_Breakout-WTV020SD},
   keine Angaben.
 
+\bibitem{TechTag}
+{TechTag}.
+\newblock {Beacon Technologie}.
+\newblock
+  \url{https://www.techtag.de/it-und-hightech/warum-das-jahr-der-ibeacons-wird/},
+  keine Angaben.
+
+\bibitem{beaconshop24}
+beaconshop24.
+\newblock {Minew E7 Bluetooth Beacon}.
+\newblock \url{https://www.beaconshop24.de/Minew-E7-Bluetooth-Beacon}, keine
+  Angaben.
+
+\bibitem{Indoorpos}
+{A. Anders}.
+\newblock {Indoor Positionsbestimmung mit Hilfe von Bluetooth Low Energy
+  Beacons und Pedestrain Dead Reckoning}.
+\newblock Thesis, March 2016.
+
 \bibitem{hm11Datasheet}
 JN~Huamao~Technology Company.
 \newblock {B}luetooth 4.0 {BLE} module.

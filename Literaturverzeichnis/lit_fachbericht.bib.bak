@@ -25,7 +25,7 @@
   note         = {[Online Available: 10.06.2018]},
 }
 
-@Misc{,
+@Misc{atmega328p,
   author       = {Atmel},
   title        = {{ATMega328/P}},
   howpublished = {Datenblatt},
@@ -34,19 +34,42 @@
   timestamp    = {2018-06-11},
 }
 
-@Misc{B,
-  author       = {Adafruit},
-  title        = {{Bone Conductor Transducer with Wires}},
-  howpublished = {\url{https://www.adafruit.com/category/product/1674}},
-  year         = {keine Angaben},
-  note         = {[Online Available: 10.06.2018]},
-}
-
 @Misc{WTVCODE,
   author       = {Sparkfun},
   title        = {{Audio Sound Breakout WTV020SD}},
   howpublished = {\url{https://github.com/sparkfun/Audio-Sound_Breakout-WTV020SD}},
   year         = {keine Angaben},
+}
+
+@Misc{UARTdefinition,
+  author       = {Matthias Meier},
+  title        = {{Digitaltechnik 1}},
+  howpublished = {Skript},
+  year         = {2016},
+  note         = {[Unpubliziertes Dokument]},
+}
+
+@Misc{DatasheetTS3USB,
+  author       = {Texas Instruments},
+  title        = {{TS3USB30}},
+  howpublished = {\url{https://www.ti.com/lit/ds/symlink/ts3usb30.pdf}},
+  year         = {2007},
+  note         = {[Online Available: 11.06.2018]},
+}
+
+@Misc{TechTag,
+  author       = {{TechTag}},
+  title        = {{Beacon Technologie}},
+  howpublished = {\url{https://www.techtag.de/it-und-hightech/warum-das-jahr-der-ibeacons-wird/}},
+  year         = {keine Angaben},
+}
+
+@Misc{Indoorpos,
+  author       = {{A. Anders}},
+  title        = {{Indoor Positionsbestimmung mit Hilfe von Bluetooth Low Energy Beacons und Pedestrain Dead Reckoning}},
+  howpublished = {Thesis},
+  month        = mar,
+  year         = {2016},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
