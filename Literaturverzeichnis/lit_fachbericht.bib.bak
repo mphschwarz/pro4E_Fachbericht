@@ -17,7 +17,7 @@
   year         = {2011},
 }
 
-@Misc{B,
+@Misc{BoneConductor,
   author       = {Adafruit},
   title        = {{Bone Conductor Transducer with Wires}},
   howpublished = {\url{https://www.adafruit.com/category/product/1674}},
@@ -70,6 +70,13 @@
   howpublished = {Thesis},
   month        = mar,
   year         = {2016},
+}
+
+@Misc{beaconshop24,
+  author       = {beaconshop24},
+  title        = {{Minew E7 Bluetooth Beacon}},
+  howpublished = {\url{https://www.beaconshop24.de/Minew-E7-Bluetooth-Beacon}},
+  year         = {keine Angaben},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
