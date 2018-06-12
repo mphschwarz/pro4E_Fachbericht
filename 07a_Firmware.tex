@@ -51,7 +51,7 @@ Auf dem Mikrocontroller läuft eine Mealy-Statemachine mit sechs Zuständen (sie
 Wird das Dojo an den Computer angeschlossen, ist der Zustand des Dojos abhängig von der gewünschten Tätigkeit. Dafür wird vom Computer aus ein Befehl über das USB-Kabel gesendet, woraufhin sich der State ändert:
 \begin{itemize}[leftmargin=3.2cm]
 \item[GET\_LIKES:] Die vom Besucher getätigten Likes werden vom EEPROM auf den Computer transferiert.
-\item[LOAD\_SD:] Sobald das Dojo in diesem State ist, schaltet der Multiplexer um und die mikroSD-Karte kann wie ein normaler Datenträger beschrieben werden.
+\item[LOAD\_SD:] Sobald das Dojo in diesem State ist, schaltet der Multiplexer um und die $\mu$SD-Karte kann wie ein normaler Datenträger beschrieben werden.
 \item[LOAD\_CONFIG:] Ein Ticket wird auf das interne EEPROM geladen.
 \end{itemize}
 \begin{figure}[h]
@@ -65,7 +65,7 @@ Wird das Dojo an den Computer angeschlossen, ist der Zustand des Dojos abhängig
 %In diesem Kapitel wird die Datenverwaltung auf dem internen EEPROM erklärt.
 Das Ticket auf dem EEPROM beinhaltet für jedes Ausstellungsobjekt zwei Bytes, das erste beinhaltet die Beacon-ID und das zweite das Zutritts- und Like-Bit.
 Die ersten zwei Bytes sind reserviert und beinhalten die Anzahl gespeicherter Beacons und ein Sprachcode: 0 für die erste Sprace, 1 für die zweite.
-Da auf der mikroSD-Karte die Dateien der zwei Sparchen abewechslungsweise und in gleicher Reihenfolge wie im EEPROM aufgelistet sind, muss nur der Index der Beaon-ID übergeben werden damit die korrekte Audiodatei abgespielt werden kann: \\
+Da auf der $\mu$SD-Karte die Dateien der zwei Sparchen abewechslungsweise und in gleicher Reihenfolge wie im EEPROM aufgelistet sind, muss nur der Index der Beaon-ID übergeben werden damit die korrekte Audiodatei abgespielt werden kann: \\
 \texttt{(BeaconIndex - 2) * 2 + Sprachcode}.
 \section{Validierung}
 %Hier wird die Validierung der kompletten Firmware sowie dessen Ergebnisse dargelegt. 
@@ -81,4 +81,4 @@ Dabei sind die Tasterfunktionen:
 \end{itemize}
 Ein weiterer Aspekt, welcher dazu führt, dass für einen nächsten Prototyp des Dojos möglicherweise ein anderer Mikrochip benutzt wird ist, dass der ATMega 328p nur zwei external Interrupts hat (Abbilung \ref{fig:ATMega328p} Pins PD2-INT0 \& PD3-INT1). Diese sind momentan aber mit der Softwareserial belegt, weshalb mit den Taster nicht auf diese zugegriffen werden kann. Genauso gab es Konflikte mit der Softwareserial Library, die Tasterinterrupts über Pin Change Interrupts anzusteuern. Darum werden jetzt für die gesamte Funktion des Prototyps die Taster nach jedem scan() abgefragt und die Statusled zum togglen gebracht, wenn der Taster detektiert wurde.
 \\[0.5cm]
-Die micro SD-Karte kann als normaler Datenträger mit den Audiofiles beschrieben werden. Zu beachten ist einfach, dass dies nur über einen Computer mit Linux als Betriebssystem funktioniert.
+Die $\mu$SD-Karte kann als normaler Datenträger mit den Audiofiles beschrieben werden. Zu beachten ist einfach, dass dies nur über einen Computer mit Linux als Betriebssystem funktioniert.
